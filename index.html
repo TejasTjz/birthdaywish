@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Very Important Security Check 🎂</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #d63384;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 12px 15px;
+            border: 2px solid #ff85a2;
+            border-radius: 25px;
+            outline: none;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #ff477e;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #ff0054;
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            min-height: 50px;
+        }
+
+        #noBtn {
+            background-color: #6c757d;
+            position: absolute;
+        }
+
+        .wish-para {
+            text-align: left;
+            background: #fff0f5;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #ff477e;
+            font-size: 1.05rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- Step 1: Funny Name Check -->
+        <div id="step1">
+            <h1>🚨 Identity Verification Required</h1>
+            <p>Wait a minute! Who is trying to access this secret page? Enter your name below to prove you are the prettiest girl in the world:</p>
+            <input type="text" id="nameInput" placeholder="Type your name here...">
+            <br>
+            <button onclick="checkName()">Verify Identity ✨</button>
+            <p id="errorMsg" style="color: red; margin-top: 10px; font-size: 0.9rem;"></p>
+        </div>
+
+        <!-- Step 2: Interactive Question -->
+        <div id="step2" class="hidden">
+            <h1>Hold On, <span id="displayName"></span>! 🛑</h1>
+            <p>Before you get your surprise... Are you ready to accept an excessive amount of love, bad jokes, and birthday affection today?</p>
+            <div class="btn-group">
+                <button id="yesBtn" onclick="showWish()">Yes, I'm ready! 💕</button>
+                <button id="noBtn" onmouseover="moveButton()">Nope 😜</button>
+            </div>
+        </div>
+
+        <!-- Step 3: The Big Wish -->
+        <div id="step3" class="hidden">
+            <h1>🎉 Happy Birthday, My Love! 🎂</h1>
+            <div class="wish-para">
+                <p>To the most incredible person in my life,</p>
+                <p>I wanted to create something special just for you today. Thank you so much for simply being you, for bringing endless brightness, laughter, and warmth into my world every single day. Being with you makes every ordinary moment feel special, and I am so deeply grateful to share this journey with you.</p>
+                <p>Thank you for your kindness, your patience, your adorable smile, and for constantly inspiring me to be a better person. I hope this year brings you all the joy, success, and pure happiness that you deserve.</p>
+                <p>Happy Birthday! Here's to celebrating you today and creating many more wonderful memories together. ❤️</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userName = "";
+
+        function checkName() {
+            const input = document.getElementById('nameInput').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (input === "") {
+                errorMsg.innerText = "Hey! You can't leave this blank. Who are you?!";
+            } else {
+                userName = input;
+                document.getElementById('displayName').innerText = userName;
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.remove('hidden');
+            }
+        }
+
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - 100) - (window.innerWidth / 2) + 50;
+            const y = Math.random() * (window.innerHeight - 100) - (window.innerHeight / 2) + 50;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function showWish() {
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.remove('hidden');
+
+            // Trigger Confetti
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+    </script>
+</body>
+</html>
